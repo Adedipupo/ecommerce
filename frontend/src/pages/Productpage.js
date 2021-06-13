@@ -14,7 +14,7 @@ const Productpage = ({ match }) => {
         setProduct(data.data);
       };
       fetchData();
-    }, []);
+    }, [match]);
 
     return (
       <>
