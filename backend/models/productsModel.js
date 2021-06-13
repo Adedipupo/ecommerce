@@ -30,10 +30,6 @@ const productSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    password: {
-      type: String,
-      required: true,
-    },
     category: {
       type: String,
       required: true,
@@ -67,4 +63,6 @@ const productSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-export default ProductModel = mongoose.model("Product", productSchema);
+const ProductModel = mongoose.model("Product", productSchema);
+
+export default ProductModel
