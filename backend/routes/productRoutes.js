@@ -4,13 +4,13 @@ import ProductModel from '../models/productsModel.js';
 
 const router = express.Router()
 
-router.get("/", asyncHandler(async (req, res) => {
+router.get("/products", asyncHandler(async (req, res) => {
     const products = await ProductModel.find({})
     res.status(200).json({data: products})
 
 }));
 
-router.get("/:id", asyncHandler(async (req, res) => {
+router.get("/product/:id", asyncHandler(async (req, res) => {
     const product = await ProductModel.findById(req.params.id)
     if (product) {
         res.status(200).json({data:product})
