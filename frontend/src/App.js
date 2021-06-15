@@ -8,6 +8,7 @@ import Cartpage from './pages/Cartpage.js'
 import Loginpage from './pages/Loginpage.js';
 import Registerpage from './pages/Registerpage.js';
 import Profilepage from './pages/Profilepage.js';
+import Shippingpage from './pages/Shippingpage.js';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Header/>
       <main className='py-3'>
         <Container>
+          <Route path='/shipping' component={Shippingpage} />
           <Route path='/login' component={Loginpage} />
           <Route path='/register' component={Registerpage} />
           <Route path='/profile' component={Profilepage} />
