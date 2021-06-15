@@ -11,7 +11,7 @@ export const login = (email,password ) => async (dispatch) => {
           }
       }
 
-    const { data } = await axios.get("/api/user/login",{email,password},config );
+    const { data } = await axios.post("/api/user/login", { email, password }, config);
 
       dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
       
@@ -26,3 +26,5 @@ export const login = (email,password ) => async (dispatch) => {
     });
   }
 };
+
+// export default login
