@@ -10,6 +10,7 @@ import Registerpage from './pages/Registerpage.js';
 import Profilepage from './pages/Profilepage.js';
 import Shippingpage from './pages/Shippingpage.js';
 import Paymentpage from './pages/Paymentpage.js';
+import Placeorderpage from './pages/Placeorderpage.js';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Container>
           <Route path='/shipping' component={Shippingpage} />
           <Route path='/payment' component={Paymentpage} />
+          <Route path='/placeorder' component={Placeorderpage} />
           <Route path='/login' component={Loginpage} />
           <Route path='/register' component={Registerpage} />
           <Route path='/profile' component={Profilepage} />

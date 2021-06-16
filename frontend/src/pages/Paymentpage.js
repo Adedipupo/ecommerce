@@ -45,8 +45,8 @@ const Paymentpage = ({ history }) => {
               id="Stripe"
               name="paymentMethod"
               value="Stripe"
-              checked
               onChange={(e) => setPaymentMethod(e.target.value)}
+              disabled
             ></Form.Check>
           </Col>
         </Form.Group>
