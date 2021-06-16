@@ -81,7 +81,9 @@ const Placeorderpage = () => {
             </ListGroup.Item>
           </ListGroup>
         </Col>
-        <Col md={4}>
+              <Col md={4}>
+                  <Card>
+
           <ListGroup variant="flush">
             <ListGroup.Item>
               <h2>Order Summary</h2>
@@ -121,11 +123,12 @@ const Placeorderpage = () => {
                 className="btn-block"
                 disabled={cart.cartItems === 0}
                 onClick={placeOrderHandler}
-              >
+                >
                 Place Order
               </Button>
             </ListGroup.Item>
           </ListGroup>
+        </Card>
         </Col>
       </Row>
     </>
