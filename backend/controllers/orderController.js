@@ -3,10 +3,11 @@ import asyncHandler from "express-async-handler";
 import OrderModel from "../models/orderModel.js"
 
 export const addOrderItems = asyncHandler(async (req, res) => {
+  console.log(req.body);
   const {
     orderItems,
     shippingAddress,
-    paymentMethod,
+    PaymentMethod,
     itemsPrice,
     taxPrice,
     shippingPrice,
@@ -19,10 +20,10 @@ export const addOrderItems = asyncHandler(async (req, res) => {
     return;
   } else {
       const order = new OrderModel({
-          orderItems,
-         user: req.user._id,
+        orderItems,
+        user: req.user._id,
         shippingAddress,
-        paymentMethod,
+        PaymentMethod,
         itemsPrice,
         taxPrice,
         shippingPrice,
