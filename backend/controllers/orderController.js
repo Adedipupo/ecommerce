@@ -3,7 +3,6 @@ import asyncHandler from "express-async-handler";
 import OrderModel from "../models/orderModel.js"
 
 export const addOrderItems = asyncHandler(async (req, res) => {
-  console.log(req.body);
   const {
     orderItems,
     shippingAddress,
@@ -75,3 +74,8 @@ export const updateOrderToPaid = asyncHandler(async (req, res) => {
     throw new Error(`Order not Found`);
   }
 });
+
+export const getMyOrders = asyncHandler(async (req, res) => {
+  const orders = await OrderModel.find({ user: req.user._id })
+  res.status(200).json(orders)
+})
