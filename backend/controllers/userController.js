@@ -89,7 +89,6 @@ export const updateUserProfile = asyncHandler(async (req, res) => {
   }
 });
 
-//get Admin user
 export const getUsers = asyncHandler(async (req, res) => {
   const users = await UserModel.find({});
   res.json(users);

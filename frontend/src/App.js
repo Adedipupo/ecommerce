@@ -12,6 +12,7 @@ import Shippingpage from './pages/Shippingpage.js';
 import Paymentpage from './pages/Paymentpage.js';
 import Placeorderpage from './pages/Placeorderpage.js';
 import Orderpage from './pages/Orderpage.js';
+import UserListpage from './pages/UserListpage.js';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path='/profile' component={Profilepage} />
           <Route path='/product/:id' component={Productpage} />
           <Route path='/cart/:id?' component={Cartpage} />
+          <Route path='/admin/userlist' component={UserListpage} />
           <Route path='/' component={Homepage} exact />
         </Container>
       </main>
