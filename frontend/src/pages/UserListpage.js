@@ -6,15 +6,22 @@ import Loader from "../components/Loader.js";
 import Message from "../components/Message.js";
 import { listUsers } from "../actions/userActions.js";
 
-const UserListpage = () => {
+const UserListpage = ({ history }) => {
   const dispatch = useDispatch();
 
   const userList = useSelector((state) => state.userList);
   const { loading, error, users } = userList;
 
-  useEffect(() => {
-    dispatch(listUsers());
-  });
+      const userLogin = useSelector((state) => state.userLogin);
+      const { userInfo } = userLogin;
+
+    useEffect(() => {
+        if (userInfo && userInfo.isAdmin) {
+            dispatch(listUsers());
+        } else {
+            history.push('/login')
+      }
+  },[dispatch,history,userInfo]);
     
     const deleteHandler = (id) => {
 
@@ -48,7 +55,7 @@ const UserListpage = () => {
                 </td>
                 <td>
                   {user.isAdmin ? (
-                    <i className="fa fa-checked" style={{ color: "green" }}></i>
+                    <i className="fa fa-check" style={{ color: "green" }}></i>
                   ) : (
                     <i className="fas fa-times" style={{ color: "red" }}></i>
                   )}

@@ -93,3 +93,11 @@ export const getUsers = asyncHandler(async (req, res) => {
   const users = await UserModel.find({});
   res.json(users);
 });
+
+export const deleteUser = asyncHandler(async (req, res) => {
+  const user = await UserModel.findByIdAndDelete(req.use)
+  
+  if (user) {
+    
+  }
+})
