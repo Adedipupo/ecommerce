@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/Loader.js";
 import Message from "../components/Message.js";
 import FormContainer from "../components/FormContainer.js";
-import { getUserDetails } from "../actions/userActions.js";
+import { getUserDetails, updateUser } from "../actions/userActions.js";
+import { USER_UPDATE_RESET } from "../constants/userConstant.js";
 
 const UserEditpage = ({ match, history }) => {
   const userId = match.params.id;
@@ -14,22 +15,38 @@ const UserEditpage = ({ match, history }) => {
   const [email, setEmail] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
 
-  const dispatch = useDispatch();
+    const dispatch = useDispatch();
+    
   const userDetails = useSelector((state) => state.userDetails);
-  const { loading, error, user } = userDetails;
+    const { loading, error, user } = userDetails;
+    
+    const userUpdate = useSelector((state) => state.userUpdate);
+    const {
+      loading: loadingUpdate,
+      error: errorUpdate,
+      success: successUpdate,
+    } = userUpdate;
 
     useEffect(() => {
-        if (!user.name || user._id !== userId) {
-          dispatch(getUserDetails(userId))
+        if (successUpdate) {
+            dispatch({ type: USER_UPDATE_RESET })
+            history.push('/admin/userlist')
         } else {
-            setName(user.name)
-            setEmail(user.email)
-            setIsAdmin(user.isAdmin)
-      }
-  }, [user,dispatch,userId]);
+            if (!user.name || user._id !== userId) {
+              dispatch(getUserDetails(userId));
+            } else {
+              setName(user.name);
+              setEmail(user.email);
+              setIsAdmin(user.isAdmin);
+            }    
+        }
+
+        
+  }, [user,dispatch,userId,history,successUpdate]);
 
   const submitHandler = (e) => {
-    e.preventDefault();
+      e.preventDefault();
+      dispatch(updateUser({_id: userId, name, email, isAdmin}))
   };
 
   return (
@@ -39,7 +56,9 @@ const UserEditpage = ({ match, history }) => {
       </Link>
 
       <FormContainer>
-        <h1>Edit User</h1>
+              <h1>Edit User</h1>
+              {loadingUpdate && <Loader />}
+              {errorUpdate && <Message variant="danger">{errorUpdate}</Message>}
         {loading ? (
           <Loader />
         ) : error ? (
@@ -67,12 +86,12 @@ const UserEditpage = ({ match, history }) => {
             </Form.Group>
 
             <Form.Group controlId="isadmin">
-              <Form.Control
+              <Form.Check
                 type="checkbox"
                 label="Is Admin"
                 checked={isAdmin}
                 onChange={(e) => setIsAdmin(e.target.checked)}
-              ></Form.Control>
+              ></Form.Check>
             </Form.Group>
 
             <Button type="submit" variant="primary">
