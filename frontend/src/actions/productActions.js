@@ -123,8 +123,9 @@ export const updateProduct = (product) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-
+    
     const { data } = await axios.put(`/api/product/${product._id}`, product, config);
+   
 
     dispatch({ type: PRODUCT_UPDATE_SUCCESS, payload: data });
   } catch (error) {

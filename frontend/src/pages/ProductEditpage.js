@@ -10,7 +10,7 @@ import { PRODUCT_UPDATE_RESET } from "../constants/productContants.js";
 
 const ProductEditpage = ({ match, history }) => {
   const productId = match.params.id;
-
+console.log(productId);
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
   const [image, setImage] = useState("");
@@ -50,7 +50,7 @@ const ProductEditpage = ({ match, history }) => {
   const submitHandler = (e) => {
       e.preventDefault();
       dispatch(updateProduct({
-          _id: product.id,
+          _id: product._id,
           name,
           price,
           brand,
