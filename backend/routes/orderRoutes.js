@@ -18,6 +18,6 @@ import { admin, verifyToken } from "../middleware/authMiddleware.js";
  router.get("/", verifyToken,admin, getAllOrders);
 router.get("/:id", verifyToken, getOrderById);
 router.put("/:id/pay", verifyToken, updateOrderToPaid);
-router.put("/:id/delivered", verifyToken, admin,updateOrderToDelivered); 
+router.put("/:id/deliver", verifyToken, admin,updateOrderToDelivered); 
 
  export default router;

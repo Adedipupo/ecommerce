@@ -16,8 +16,7 @@ const OrderListpage = ({ history }) => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-//   const userDelete = useSelector((state) => state.userDelete);
-//   const { success: successDelete } = userDelete;
+
 
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
@@ -53,7 +52,7 @@ const OrderListpage = ({ history }) => {
               <tr key={order._id}>
                 <td>{order._id}</td>
                 <td>{order.user && order.users?.name}</td>
-                <td>{order.createdAt.substring(0,10)}</td>
+                <td>{order.createdAt.substring(0, 10)}</td>
                 <td>{order.totalPrice }</td>
                 <td>
                   {order.isPaid ? (
