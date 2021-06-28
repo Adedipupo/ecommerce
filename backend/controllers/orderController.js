@@ -79,3 +79,18 @@ export const getMyOrders = asyncHandler(async (req, res) => {
   const orders = await OrderModel.find({ user: req.user._id })
   res.status(200).json(orders)
 })
+
+export const updateOrderToDelivered = asyncHandler(async (req, res) => {
+  const order = await OrderModel.findById(req.params.id);
+
+  if (order) {
+    order.isDelivered = true;
+    order.deliveredAt = Date.now();
+
+    const updatedOrder = await order.save();
+    res.status(200).json(updatedOrder);
+  } else {
+    res.status(404);
+    throw new Error(`Order not Found`);
+  }
+});
