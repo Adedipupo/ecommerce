@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-// import { LinkContainer } from "react-router-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 import { Table, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { listOrders } from "../actions/orderActions.js";
@@ -27,11 +27,6 @@ const OrderListpage = ({ history }) => {
     }
   }, [dispatch, history, userInfo]);
 
-  const deleteHandler = (id) => {
-    // if (window.confirm("Are you sure you want to delete")) {
-    //   dispatch(deleteUser(id));
-    // }
-  };
 
   return (
     <>
@@ -57,7 +52,7 @@ const OrderListpage = ({ history }) => {
             {orders.map((order) => (
               <tr key={order._id}>
                 <td>{order._id}</td>
-                <td>{order.user && order.users.name}</td>
+                <td>{order.user && order.users?.name}</td>
                 <td>{order.createdAt.substring(0,10)}</td>
                 <td>{order.totalPrice }</td>
                 <td>
@@ -69,24 +64,18 @@ const OrderListpage = ({ history }) => {
                 </td>
                 <td>
                   {order.isDelivered ? (
-                    order.deliveredAt
+                    order.deliveredAt.substring(0, 10)
                   ) : (
                     <i className="fas fa-times" style={{ color: "red" }}></i>
                   )}
                 </td>
                 <td>
-                  {/* <LinkContainer to={`/admin/user/${o._id}/edit`}>
+                  <LinkContainer to={`/order/${order._id}`}>
                     <Button variant="light" className="btn-sm">
-                      <i className="fas fa-edit"></i>
+                      Details
                     </Button>
-                  </LinkContainer> */}
-                  <Button
-                    variant="danger"
-                    className="btn-sm"
-                    onClick={() => deleteHandler(order._id)}
-                  >
-                    <i className="fas fa-trash"></i>
-                  </Button>
+                  </LinkContainer>
+
                 </td>
               </tr>
             ))}
