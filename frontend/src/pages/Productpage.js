@@ -17,6 +17,7 @@ import {
 } from "../actions/productActions";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
+import { PRODUCT_CREATE_REVIEW_RESET } from "../constants/productContants";
 
 const Productpage = ({ history, match }) => {
   const [qty, setQty] = useState(1);
@@ -31,12 +32,18 @@ const Productpage = ({ history, match }) => {
   const { userInfo } = userLogin;
 
   const productCreateReview = useSelector((state) => state.productCreateReview);
-  const { success: successProductReview, error: errorProductReview } =
+  const {loading:loadingProductReview,success: successProductReview, error: errorProductReview } =
     productCreateReview;
 
   useEffect(() => {
+    if (successProductReview) {
+      alert('Review Submitted!')
+      setRating(0)
+      setComment('')
+      dispatch({type: PRODUCT_CREATE_REVIEW_RESET})
+    }
     dispatch(listProductDetails(match.params.id));
-  }, [dispatch, match]);
+  }, [dispatch, match,successProductReview]);
 
   const addToCartHandler = () => {
     history.push(`/cart/${match.params.id}?qty=${qty}`);
@@ -135,7 +142,7 @@ const Productpage = ({ history, match }) => {
           <Row>
             <Col md={6}>
               <h2>Reviews</h2>
-              {product.reviews.length === 0 && <Message>No reviews</Message>}
+              {product.reviews.length === 0 && <Message>No Reviews</Message>}
               <ListGroup variant="flush">
                 {product.reviews.map((review) => (
                   <ListGroup.Item key={review._id}>
@@ -146,10 +153,16 @@ const Productpage = ({ history, match }) => {
                   </ListGroup.Item>
                 ))}
                 <ListGroup.Item>
+                  <h2>Write a Customer Review</h2>
+                  {successProductReview && (
+                    <Message variant="success">
+                      Review submitted successfully
+                    </Message>
+                  )}
+                  {loadingProductReview && <Loader />}
                   {errorProductReview && (
                     <Message variant="danger">{errorProductReview}</Message>
                   )}
-                  <h2>Write a Customer Review</h2>
                   {userInfo ? (
                     <Form onSubmit={submitHandler}>
                       <Form.Group controlId="rating">
@@ -161,9 +174,9 @@ const Productpage = ({ history, match }) => {
                         >
                           <option value="">Select...</option>
                           <option value="1">1 - Poor</option>
-                          <option value="2">1 - Fair</option>
-                          <option value="3">1 - Good</option>
-                          <option value="4">1 - Very Good</option>
+                          <option value="2">2 - Fair</option>
+                          <option value="3">3 - Good</option>
+                          <option value="4">4 - Very Good</option>
                           <option value="5">5 - Excellent</option>
                         </Form.Control>
                       </Form.Group>
@@ -173,16 +186,20 @@ const Productpage = ({ history, match }) => {
                           as="textarea"
                           row="3"
                           value={comment}
-                          onChange={(e) => e.target.value}
+                          onChange={(e) => setComment(e.target.value)}
                         ></Form.Control>
                       </Form.Group>
-                      <Button type="submit" variant="primary">
+                      <Button
+                        disabled={loadingProductReview}
+                        type="submit"
+                        variant="primary"
+                      >
                         Submit
                       </Button>
                     </Form>
                   ) : (
                     <Message>
-                      Please <Link to="/login">Sing in</Link>to write a review
+                      Please <Link to="/login">sign in</Link> to write a review{" "}
                     </Message>
                   )}
                 </ListGroup.Item>
