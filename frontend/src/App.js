@@ -15,6 +15,7 @@ import Orderpage from './pages/Orderpage.js';
 import UserListpage from './pages/UserListpage.js';
 import UserEditpage from './pages/UserEditpage.js';
 import ProductListpage from './pages/ProductListpage.js';
+import ProductEditpage from './pages/ProductEditpage.js';
 
 function App() {
   return (
@@ -32,7 +33,8 @@ function App() {
           <Route path='/product/:id' component={Productpage} />
           <Route path='/cart/:id?' component={Cartpage} />
           <Route path='/admin/userlist' component={UserListpage} />
-          <Route path='/admin/user/:id' component={UserEditpage} />
+          <Route path='/admin/user/:id/edit' component={UserEditpage} />
+          <Route path='/admin/product/:id/edit' component={ProductEditpage} />
           <Route path='/admin/productlist' component={ProductListpage} />
           <Route path='/' component={Homepage} exact />
         </Container>
