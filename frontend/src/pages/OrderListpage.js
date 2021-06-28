@@ -11,7 +11,8 @@ const OrderListpage = ({ history }) => {
   const dispatch = useDispatch();
 
   const orderList = useSelector((state) => state.orderList);
-  const { loading, error, orders } = orderList;
+    const { loading, error, orders } = orderList;
+    console.log(orders)
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -62,11 +63,11 @@ const OrderListpage = ({ history }) => {
                   )}
                 </td>
                 <td>
-                  {order.isDelivered ? (
+                  {/* {order.isDelivered ? (
                     order.deliveredAt.substring(0, 10)
                   ) : (
                     <i className="fas fa-times" style={{ color: "red" }}></i>
-                  )}
+                  )} */}
                 </td>
                 <td>
                   <LinkContainer to={`/order/${order._id}`}>
