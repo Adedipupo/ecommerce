@@ -21,28 +21,34 @@ import OrderListpage from './pages/OrderListpage.js';
 function App() {
   return (
     <Router>
-      <Header/>
-      <main className='py-3'>
+      <Header />
+      <main className="py-3">
         <Container>
-          <Route path='/order/:id' component={Orderpage} />
-          <Route path='/shipping' component={Shippingpage} />
-          <Route path='/payment' component={Paymentpage} />
-          <Route path='/placeorder' component={Placeorderpage} />
-          <Route path='/login' component={Loginpage} />
-          <Route path='/register' component={Registerpage} />
-          <Route path='/profile' component={Profilepage} />
-          <Route path='/product/:id' component={Productpage} />
-          <Route path='/cart/:id?' component={Cartpage} />
-          <Route path='/admin/userlist' component={UserListpage} />
-          <Route path='/admin/user/:id/edit' component={UserEditpage} />
-          <Route path='/admin/product/:id/edit' component={ProductEditpage} />
-          <Route path='/admin/productlist' component={ProductListpage} />
-          <Route path='/admin/orderlist' component={OrderListpage} />
-          <Route path='/search/:keyword' component={Homepage} />
-          <Route path='/' component={Homepage} exact />
+          <Route path="/order/:id" component={Orderpage} />
+          <Route path="/shipping" component={Shippingpage} />
+          <Route path="/payment" component={Paymentpage} />
+          <Route path="/placeorder" component={Placeorderpage} />
+          <Route path="/login" component={Loginpage} />
+          <Route path="/register" component={Registerpage} />
+          <Route path="/profile" component={Profilepage} />
+          <Route path="/product/:id" component={Productpage} />
+          <Route path="/cart/:id?" component={Cartpage} />
+          <Route path="/admin/userlist" component={UserListpage} />
+          <Route path="/admin/user/:id/edit" component={UserEditpage} />
+          <Route path="/admin/product/:id/edit" component={ProductEditpage} />
+          <Route path="/admin/productlist" component={ProductListpage} />
+          <Route path="/admin/orderlist" component={OrderListpage} />
+          <Route path="/search/:keyword" component={Homepage} />
+          <Route path="/page/:pageNumber" component={Homepage} exact />
+          <Route
+            path="/search/:keyword/page/:pageNumber"
+            component={Homepage}
+            exact
+          />
+          <Route path="/" component={Homepage} exact />
         </Container>
       </main>
-      <Footer/>
+      <Footer />
     </Router>
   );
 }
