@@ -6,18 +6,14 @@ import { listOrders } from "../actions/orderActions.js";
 import Loader from "../components/Loader.js";
 import Message from "../components/Message.js";
 
-
 const OrderListpage = ({ history }) => {
   const dispatch = useDispatch();
 
   const orderList = useSelector((state) => state.orderList);
-    const { loading, error, orders } = orderList;
-    console.log(orders)
-
+  const { loading, error, orders } = orderList;
+  console.log(orders);
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
-
-
 
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
@@ -26,7 +22,6 @@ const OrderListpage = ({ history }) => {
       history.push("/login");
     }
   }, [dispatch, history, userInfo]);
-
 
   return (
     <>
@@ -44,7 +39,7 @@ const OrderListpage = ({ history }) => {
               <th>DATE</th>
               <th>TOTAL</th>
               <th>PAID</th>
-              <th>DELIVERED</th> 
+              <th>DELIVERED</th>
               <th></th>
             </tr>
           </thead>
@@ -52,9 +47,9 @@ const OrderListpage = ({ history }) => {
             {orders.map((order) => (
               <tr key={order._id}>
                 <td>{order._id}</td>
-                <td>{order.user && order.users?.name}</td>
+                <td>{order.user && order.user.name}</td>
                 <td>{order.createdAt.substring(0, 10)}</td>
-                <td>{order.totalPrice }</td>
+                <td>${order.totalPrice}</td>
                 <td>
                   {order.isPaid ? (
                     order.paidAt.substring(0, 10)
@@ -75,7 +70,6 @@ const OrderListpage = ({ history }) => {
                       Details
                     </Button>
                   </LinkContainer>
-
                 </td>
               </tr>
             ))}

@@ -1,6 +1,6 @@
 import asyncHandler from "express-async-handler";
 
-import OrderModel from "../models/orderModel.js"
+import OrderModel from "../models/orderModel.js";
 
 export const addOrderItems = asyncHandler(async (req, res) => {
   const {
@@ -18,34 +18,37 @@ export const addOrderItems = asyncHandler(async (req, res) => {
     throw new Error("No order items");
     return;
   } else {
-      const order = new OrderModel({
-        orderItems,
-        user: req.user._id,
-        shippingAddress,
-        PaymentMethod,
-        itemsPrice,
-        taxPrice,
-        shippingPrice,
-        totalPrice,
-      });
+    const order = new OrderModel({
+      orderItems,
+      user: req.user._id,
+      shippingAddress,
+      PaymentMethod,
+      itemsPrice,
+      taxPrice,
+      shippingPrice,
+      totalPrice,
+    });
 
-      const createOrder = await order.save();
-      res.status(201).json(createOrder);
+    const createOrder = await order.save();
+    res.status(201).json(createOrder);
   }
 });
 
 export const getAllOrders = asyncHandler(async (req, res) => {
-  const orders = await OrderModel.find({})
+  const orders = await OrderModel.find({});
 
   if (orders) {
-    res.status(200).json(orders)
+    res.status(200).json(orders);
   } else {
-    res.status(404).json(`No Order Found`)
+    res.status(404).json(`No Order Found`);
   }
 });
 
 export const getOrderById = asyncHandler(async (req, res) => {
-  const order = await OrderModel.findById(req.params.id).populate('user','name email');
+  const order = await OrderModel.findById(req.params.id).populate(
+    "user",
+    "name email"
+  );
   if (order) {
     res.status(200).json(order);
   } else {
@@ -55,7 +58,7 @@ export const getOrderById = asyncHandler(async (req, res) => {
 });
 
 export const updateOrderToPaid = asyncHandler(async (req, res) => {
-  const order = await OrderModel.findById(req.params.id)
+  const order = await OrderModel.findById(req.params.id);
 
   if (order) {
     order.isPaid = true;
@@ -67,7 +70,7 @@ export const updateOrderToPaid = asyncHandler(async (req, res) => {
       email_address: req.body.payer.email_address,
     };
 
-    const updatedOrder = await order.save()
+    const updatedOrder = await order.save();
     res.status(200).json(updatedOrder);
   } else {
     res.status(404);
@@ -76,9 +79,9 @@ export const updateOrderToPaid = asyncHandler(async (req, res) => {
 });
 
 export const getMyOrders = asyncHandler(async (req, res) => {
-  const orders = await OrderModel.find({ user: req.user._id })
-  res.status(200).json(orders)
-})
+  const orders = await OrderModel.find({ user: req.user._id });
+  res.status(200).json(orders);
+});
 
 export const updateOrderToDelivered = asyncHandler(async (req, res) => {
   const order = await OrderModel.findById(req.params.id);
