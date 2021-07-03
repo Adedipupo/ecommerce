@@ -3,7 +3,7 @@ import ProductModel from "../models/productsModel.js";
 
 
 export const getAllProducts = asyncHandler(async (req, res) => {
-    const pageSize = 10;
+    const pageSize = 3;
   const page = Number(req.query.pageNumber) || 1;
   
   const keyword = req.query.keyword ? {
