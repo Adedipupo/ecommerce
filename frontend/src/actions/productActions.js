@@ -187,7 +187,7 @@ export const listTopProducts = () => async (dispatch) => {
    `/api/products/top`
  );
 
-    dispatch({ type: PRODUCT_TOP_SUCCESS, payload: data  });
+    dispatch({ type: PRODUCT_TOP_SUCCESS, payload: data.data  });
   } catch (error) {
     dispatch({
       type: PRODUCT_TOP_FAIL,
