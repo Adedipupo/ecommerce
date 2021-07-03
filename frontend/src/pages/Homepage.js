@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import {Link} from 'react-router-dom';
 import { Row, Col } from "react-bootstrap";
 import Product from "../components/Products/Products";
 import { listProducts } from "../actions/productActions";
@@ -7,6 +8,7 @@ import Loader from "../components/Loader.js";
 import Message from "../components/Message.js";
 import Paginate from "../components/Paginate";
 import ProductCarousel from "../components/ProductCarousel.js";
+import Meta from "../components/Meta.js";
 
 const Homepage = ({ match }) => {
   const keyword = match.params.keyword;
@@ -24,7 +26,8 @@ const Homepage = ({ match }) => {
 
   return (
     <>
-    {!keyword && <ProductCarousel />}
+    <Meta />
+    {!keyword ? <ProductCarousel />: <Link to='/' className="btn btn-sm">Go Back</Link>}
       <h1>Latests Products</h1>
       {loading ? (<Loader />) : error ? (<Message variant="danger">{error}</Message>):(
         <>
