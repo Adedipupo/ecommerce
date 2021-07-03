@@ -6,12 +6,14 @@ import Loader from "../components/Loader.js";
 import Message from "../components/Message.js";
 import { createProduct, deleteProduct, listProducts } from "../actions/productActions.js";
 import { PRODUCT_CREATE_RESET } from "../constants/productContants.js";
+import Paginate from "../components/Paginate";
 
 const ProductListpage = ({ history, match }) => {
+  const pageNumber = match.params.pageNumber || 1
   const dispatch = useDispatch();
 
   const productList = useSelector((state) => state.productList);
-  const { loading, error, products } = productList;
+  const { loading, error, products,pages,page } = productList;
 
   const productDelete = useSelector((state) => state.productDelete);
   const {
@@ -41,7 +43,7 @@ const ProductListpage = ({ history, match }) => {
     if (successCreate) {
       history.push(`/admin/product/${createdProduct._id}/edit`)
     } else {
-      dispatch(listProducts())
+      dispatch(listProducts("",pageNumber))
     }
   }, [dispatch, history, userInfo,successDelete, successCreate, createdProduct]);
 
@@ -76,6 +78,7 @@ const ProductListpage = ({ history, match }) => {
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
+        <>
         <Table striped bordered hover responsive className="table-sm">
           <thead>
             <tr>
@@ -113,6 +116,8 @@ const ProductListpage = ({ history, match }) => {
             ))}
           </tbody>
         </Table>
+        <Paginate pages={pages} page={page} isAdmin={true}/>
+        </>
       )}
     </>
   );
