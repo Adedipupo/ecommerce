@@ -27,23 +27,26 @@ const Productpage = ({ history, match }) => {
 
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
-
+  console.log(product);
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
   const productCreateReview = useSelector((state) => state.productCreateReview);
-  const {loading:loadingProductReview,success: successProductReview, error: errorProductReview } =
-    productCreateReview;
+  const {
+    loading: loadingProductReview,
+    success: successProductReview,
+    error: errorProductReview,
+  } = productCreateReview;
 
   useEffect(() => {
     if (successProductReview) {
-      alert('Review Submitted!')
-      setRating(0)
-      setComment('')
-      dispatch({type: PRODUCT_CREATE_REVIEW_RESET})
+      alert("Review Submitted!");
+      setRating(0);
+      setComment("");
+      dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
     }
     dispatch(listProductDetails(match.params.id));
-  }, [dispatch, match,successProductReview]);
+  }, [dispatch, match, successProductReview]);
 
   const addToCartHandler = () => {
     history.push(`/cart/${match.params.id}?qty=${qty}`);
